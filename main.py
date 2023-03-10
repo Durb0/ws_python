@@ -3,7 +3,7 @@ from spyne.application import Application
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
 
-from traject_service import TrajectService
+from services import TrajectService
 
 application = Application([TrajectService], 'spyne.examples.hello.http',
                           in_protocol=Soap11(validator='lxml'),
