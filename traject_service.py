@@ -5,7 +5,6 @@ import utils
 
 
 class TrajectService(ServiceBase):
-    origin = '*'
 
     @rpc(Float, Float, Float, Float, Integer, _returns=Iterable(Iterable(Float)))
     def calculate_traject(self, start_lng, start_lat, finish_lng, finish_lat, range):
