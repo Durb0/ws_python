@@ -12,7 +12,7 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
         print(center[0], center[1], max_distance)
         params = {
             'dataset': 'bornes-irve',
-            'rows': 1000,
+            'rows': 10000,
             'geofilter.distance': '%s,%s,%s' % (center[0], center[1], max_distance*1000)
         }
         response = requests.get(apiUrl, params=params)
