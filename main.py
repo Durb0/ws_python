@@ -6,9 +6,9 @@ from spyne.server.wsgi import WsgiApplication
 
 from services import TrajectService
 
-application = Application([TrajectService], 'spyne.examples.hello.http',
+application = Application([TrajectService], 'info.802.traject.soap',
                           in_protocol=Soap11(validator='lxml'),
                           out_protocol=Soap11())
 
-app = WsgiApplication(application)
-# allow cross-domain requests
+wsgi_application = WsgiApplication(application)
+app = wsgi_application
