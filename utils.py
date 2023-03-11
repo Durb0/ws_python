@@ -15,7 +15,7 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
             'rows': 10000,
             'geofilter.distance': '%s,%s,%s' % (center[0], center[1], max_distance*1000)
         }
-        response = requests.get(apiUrl, params=params)
+        response = requests.get(apiUrl, params=params, timeout=100)
         data = response.json()
         records = data['records']
         coords = []
