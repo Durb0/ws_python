@@ -3,6 +3,7 @@ from spyne.application import Application
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
 
+
 from services import TrajectService
 
 application = Application([TrajectService], 'spyne.examples.hello.http',
@@ -10,4 +11,4 @@ application = Application([TrajectService], 'spyne.examples.hello.http',
                           out_protocol=Soap11())
 
 app = WsgiApplication(application)
-
+# allow cross-domain requests
