@@ -1,13 +1,12 @@
 {
   "builds": [{
-    "src": "main.py",
-    "use": "@vercel/python",
-    "config": {"maxLambdaSize": "15mb", "runtime": "python3.9"}
+    "src": "api/traject_service.py",
+    "use": "@vercel/python"
   }],
     "routes": [
         {
           "src": "/(.*)",
-          "dest": "main.py"
+          "dest": "api/traject_service.py"
         }
     ]
 }
