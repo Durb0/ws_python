@@ -9,5 +9,5 @@ application = Application([TrajectService], 'spyne.examples.hello.http',
                           in_protocol=Soap11(validator='lxml'),
                           out_protocol=Soap11())
 
-wsgi_application = WsgiApplication(application)
-app = wsgi_application
+app = WsgiApplication(application)
+
