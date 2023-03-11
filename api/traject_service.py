@@ -13,8 +13,7 @@ class TrajectService(ServiceBase):
     @rpc(Float, Float, Float, Float, Integer, _returns=Iterable(Iterable(Float)))
     def calculate_traject(ctx, start_lng, start_lat, finish_lng, finish_lat, autonomy):
         ctx.transport.resp_headers['Access-Control-Allow-Origin'] = '*'
-        print(f'calculate_traject({start_lng}, {start_lat}, {finish_lng}, {finish_lat})')
-        return utils.get_shortest_path((start_lng, start_lat), (finish_lng, finish_lat), autonomy)
+        return utils.get_shortest_path((start_lat, start_lng), (finish_lat, finish_lng), autonomy)
 
 
 application = Application([TrajectService], 'info.802.traject.soap',
