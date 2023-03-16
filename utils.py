@@ -35,6 +35,9 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
             if distance < shortest_distance:
                 shortest_distance = distance
                 shortest_coord = coord
+            else:
+                #remove coord
+                charging_stations.remove(coord)
         return shortest_coord
 
     def get_borns_around(center: Tuple[float, float]) -> List[
@@ -69,5 +72,6 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
             res_list.append(end)
             break
         res_list.append(shortest_coord)
+
 
     return res_list
