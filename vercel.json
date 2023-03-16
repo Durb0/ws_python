@@ -6,7 +6,8 @@
     "routes": [
         {
           "src": "/(.*)",
-          "dest": "api/traject_service.py"
+          "dest": "api/traject_service.py",
+          "maxDuration": 100
         }
     ]
 }
