@@ -9,7 +9,6 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
 
     def get_charging_stations_around(center: Tuple[float, float]) -> List[Tuple[float, float]]:
         apiUrl = 'https://odre.opendatasoft.com/api/records/1.0/search/'
-        print(center[0], center[1], max_distance)
         params = {
             'dataset': 'bornes-irve',
             'rows': 10000,
@@ -21,7 +20,6 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
         coords = []
         for record in records:
             coords.append((record['geometry']['coordinates'][1], record['geometry']['coordinates'][0]))
-        print(coords)
         return coords
 
     def get_shortest_coord(center: Tuple[float, float], coords: List[Tuple[float, float]]) -> Tuple[float, float]:
