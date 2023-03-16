@@ -2,6 +2,7 @@ import geopy.distance
 from spyne import rpc, ServiceBase, Float, Iterable, Integer, Application
 from spyne.protocol.soap import Soap11
 from spyne.server.wsgi import WsgiApplication
+import socket
 
 import utils
 
@@ -19,7 +20,8 @@ class TrajectService(ServiceBase):
 application = Application([TrajectService], 'info.802.traject.soap',
                           in_protocol=Soap11(validator='lxml'),
                           out_protocol=Soap11())
-application.options['timeout'] = 60000
+
+socket.setdefaulttimeout(60000)
 
 wsgi_application = WsgiApplication(application)
 app = wsgi_application
