@@ -11,7 +11,7 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
         apiUrl = 'https://odre.opendatasoft.com/api/records/1.0/search/'
         params = {
             'dataset': 'bornes-irve',
-            'rows': 10000,
+            'rows': 5000,
             'geofilter.distance': '%s,%s,%s' % (center[0], center[1], max_distance*1000)
         }
         response = requests.get(apiUrl, params=params, timeout=30000)
