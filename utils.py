@@ -54,7 +54,6 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
     res_list = [start]
 
     while res_list[-1] != end:
-        print(res_list)
         if get_distance(res_list[-1], end) < max_distance:
             res_list.append(end)
             break
