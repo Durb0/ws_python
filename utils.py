@@ -4,28 +4,13 @@ from typing import List, Tuple
 import requests
 
 
-def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_distance: float) \
+def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_distance: float, charging_stations: List[Tuple[float, float]]) \
         -> List[Tuple[float, float]]:
-    def get_center(pointA: Tuple[float, float], pointB: Tuple[float, float]) -> Tuple[float, float]:
-        return ((pointA[0] + pointB[0]) / 2, (pointA[1] + pointB[1]) / 2)
+    def get_center(point_a: Tuple[float, float], point_b: Tuple[float, float]) -> Tuple[float, float]:
+        return (point_a[0] + point_b[0]) / 2, (point_a[1] + point_b[1]) / 2
 
-    def get_distance(pointA: Tuple[float, float], pointB: Tuple[float, float]) -> float:
-        return geopy.distance.distance(pointA, pointB).km
-
-    def get_charging_stations_around(center: Tuple[float, float], radius) -> List[Tuple[float, float]]:
-        apiUrl = 'https://odre.opendatasoft.com/api/records/1.0/search/'
-        params = {
-            'dataset': 'bornes-irve',
-            'rows': 5000,
-            'geofilter.distance': '%s,%s,%s' % (center[0], center[1], radius * 1000)
-        }
-        response = requests.get(apiUrl, params=params, timeout=30000)
-        data = response.json()
-        records = data['records']
-        coords = []
-        for record in records:
-            coords.append((record['geometry']['coordinates'][1], record['geometry']['coordinates'][0]))
-        return coords
+    def get_distance(point_a: Tuple[float, float], point_b: Tuple[float, float]) -> float:
+        return geopy.distance.distance(point_a, point_b).km
 
     def get_shortest_coord(center: Tuple[float, float], coords: List[Tuple[float, float]]) -> Tuple[float, float]:
         shortest_distance = math.inf
@@ -49,27 +34,28 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
     if get_distance(start, end) < max_distance:
         return [start, end]
 
-    charging_stations = get_charging_stations_around(get_center(start, end), get_distance(start, end) / 2)
-
     res_list = [start]
 
     while res_list[-1] != end:
+        print(res_list)
         if get_distance(res_list[-1], end) < max_distance:
             res_list.append(end)
+            print("don't need to charge")
             break
         borns_around = get_borns_around(res_list[-1])
-        charging_stations = [x for x in charging_stations if x not in borns_around]
         if len(borns_around) == 0:
             res_list.append(end)
+            print("no borns around")
             break
         shortest_coord = get_shortest_coord(end, borns_around)
         if shortest_coord is None:
             res_list.append(end)
+            print("no shortest coord")
             break
         if shortest_coord == res_list[-1]:
             res_list.append(end)
+            print("shortest coord is the same as the last one")
             break
         res_list.append(shortest_coord)
-
 
     return res_list
