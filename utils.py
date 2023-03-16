@@ -46,6 +46,9 @@ def get_shortest_path(start: Tuple[float, float], end: Tuple[float, float], max_
                 coords_around.append(coord)
         return coords_around
 
+    if get_distance(start, end) < max_distance:
+        return [start, end]
+
     charging_stations = get_charging_stations_around(get_center(start, end), get_distance(start, end) / 2)
 
     res_list = [start]
