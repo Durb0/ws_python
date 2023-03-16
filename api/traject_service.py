@@ -19,6 +19,7 @@ class TrajectService(ServiceBase):
 application = Application([TrajectService], 'info.802.traject.soap',
                           in_protocol=Soap11(validator='lxml'),
                           out_protocol=Soap11())
+application.options['timeout'] = 60000
 
 wsgi_application = WsgiApplication(application)
 app = wsgi_application
